@@ -4,6 +4,8 @@
 
 #include "Physics/World.h"
 
+#include "Physics/Gravity.h"
+
 std::size_t World::create_body(const Vector3 &position, const double mass) {
     Body body;
     body.position = position;
@@ -29,4 +31,19 @@ void World::destroy_body(const std::size_t index) {
 
     bodies[index].is_alive = false;
     free_indices.push_back(index);
+}
+
+
+void World::update_grav_fields() {
+    for (auto& a : bodies) {
+        if (!a.is_alive) continue;
+        Vector3 total_g;
+        for (auto& b : bodies) {
+            if (!b.is_alive) continue;
+            if (&a == &b) continue;
+            total_g += GravField::evaluate_field_strength(b.position, a.position, b.mass);
+        }
+
+        a.acceleration += total_g;
+    }
 }

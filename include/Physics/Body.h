@@ -10,6 +10,7 @@
 struct Body {
     Vector3 position;
     Vector3 velocity;
+    Vector3 acceleration;
     Vector3 net_force;
 
     double mass = 1;

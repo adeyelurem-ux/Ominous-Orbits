@@ -18,6 +18,9 @@ public:
     Body& get_body(const std::size_t index){return bodies[index];}
     std::vector<Body>& get_bodies(){return bodies;}
 
+    void update_grav_fields();
+    void update();
+
 private:
     std::vector<Body> bodies;
     std::vector<std::size_t> free_indices;
