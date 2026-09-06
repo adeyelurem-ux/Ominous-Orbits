@@ -19,7 +19,7 @@ public:
     std::vector<Body>& get_bodies(){return bodies;}
 
     void update_grav_fields();
-    void update();
+    void update(double dt);
 
 private:
     std::vector<Body> bodies;

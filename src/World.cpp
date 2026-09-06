@@ -47,3 +47,14 @@ void World::update_grav_fields() {
         a.acceleration += total_g;
     }
 }
+
+
+void World::update(const double dt) {
+    update_grav_fields();
+
+    for (auto& body : bodies) {
+        if (!body.is_alive) continue;
+        body.velocity += body.acceleration * dt;
+        body.position += body.velocity * dt;
+    }
+}
