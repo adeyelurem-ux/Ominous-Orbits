@@ -52,15 +52,26 @@ void World::update_grav_fields() {
 
 
 void World::update(const double dt) {
+    const double half_dt = dt * 0.5;
+
+    // 1. First velocity half-step & full position step
     for (auto& body : bodies) {
+        if (!body.is_alive) continue;
+
+        body.velocity += body.acceleration * half_dt;
+        body.position += body.velocity * dt;
+
+        // Reset acceleration accumulator before computing new forces
         body.acceleration = {0, 0, 0};
     }
 
+    // 2. Compute new accelerations at updated positions
     update_grav_fields();
 
+    // 3. Second velocity half-step using NEW accelerations
     for (auto& body : bodies) {
         if (!body.is_alive) continue;
-        body.velocity += body.acceleration * dt;
-        body.position += body.velocity * dt;
+
+        body.velocity += body.acceleration * half_dt;
     }
 }

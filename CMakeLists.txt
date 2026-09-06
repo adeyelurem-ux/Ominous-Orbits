@@ -14,7 +14,10 @@ add_executable(Ominous_Orbits
         include/Physics/World.h
         src/World.cpp
         include/Physics/Gravity.h
-        src/Gravity.cpp)
+        src/Gravity.cpp
+        include/Maths/Integrators/EulerIntegrator.h
+        include/Maths/Integrators/RK2.h
+)
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")
 if(CLANG_FORMAT_EXE)
