@@ -12,6 +12,7 @@ int main() {
 
     for (uint64_t i = 0; i < 8760; i ++) {
         world.update(1.0/365);
+        if (i % 365 != 0) continue;
         std::cout << "Iteration " << i << ":\n";
         std::cout << "Sun Position: " << world.get_body(0).position << "\n";
         std::cout << "Sun Velocity: " << world.get_body(0).velocity << "\n";

@@ -8,10 +8,10 @@
 #include "Maths/LinearAlgebra/Vector3.h"
 
 struct Body {
-    Vector3 position;
-    Vector3 velocity;
-    Vector3 acceleration;
-    Vector3 net_force;
+    Vector3 position = {0, 0, 0};
+    Vector3 velocity = {0, 0, 0};
+    Vector3 acceleration = {0, 0, 0};
+    Vector3 net_force = {0, 0, 0};
 
     double mass = 1;
 
