@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "Physics/Gravity.h"
+#include "Maths/Units.h"
 
 [[nodiscard]] Vector3 GravField::evaluate_field_strength(const Vector3& source_pos,
     const Vector3& target_pos, const double source_mass) {
@@ -16,7 +17,6 @@
     }
 
     const double r_cubed = r_sqd * std::sqrt(r_sqd);
-    constexpr double G = 6.6743015e-11;
 
     return rad_vector * (G * source_mass / r_cubed);
 }

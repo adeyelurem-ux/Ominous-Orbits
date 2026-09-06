@@ -37,6 +37,8 @@ void World::destroy_body(const std::size_t index) {
 void World::update_grav_fields() {
     for (auto& a : bodies) {
         if (!a.is_alive) continue;
+
+        a.acceleration = {0, 0, 0};
         Vector3 total_g;
         for (auto& b : bodies) {
             if (!b.is_alive) continue;
@@ -50,11 +52,26 @@ void World::update_grav_fields() {
 
 
 void World::update(const double dt) {
-    update_grav_fields();
+    const double half_dt = dt * 0.5;
 
+    // 1. First velocity half-step & full position step
     for (auto& body : bodies) {
         if (!body.is_alive) continue;
-        body.velocity += body.acceleration * dt;
+
+        body.velocity += body.acceleration * half_dt;
         body.position += body.velocity * dt;
+
+        // Reset acceleration accumulator before computing new forces
+        body.acceleration = {0, 0, 0};
+    }
+
+    // 2. Compute new accelerations at updated positions
+    update_grav_fields();
+
+    // 3. Second velocity half-step using NEW accelerations
+    for (auto& body : bodies) {
+        if (!body.is_alive) continue;
+
+        body.velocity += body.acceleration * half_dt;
     }
 }
