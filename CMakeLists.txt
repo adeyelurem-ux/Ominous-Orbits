@@ -8,7 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include_directories(include)
 
 add_executable(Ominous_Orbits
-        src/main.cpp)
+        src/main.cpp
+        include/Maths/LinearAlgebra/Vector3.h)
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")
 if(CLANG_FORMAT_EXE)
