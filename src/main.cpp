@@ -1,23 +1,24 @@
 #include<iostream>
 
 #include "Physics/World.h"
+#include "Maths/Units.h"
 
 int main() {
     World world;
-    world.create_body({0, 0, 0}, 5.9722e24);
-    world.create_body({3.844e8, 0, 0}, 7.346e22);
+    world.create_body({0, 0, 0}, 1);
+    world.create_body({1, 0, 0}, 3.003489616e-6);
 
-    world.get_body(1).velocity = {0, 1022, 0};
+    world.get_body(1).velocity = {0, 2.0 * std::numbers::pi, 0};
 
-    for (uint64_t i = 0; i < 700000; i ++) {
-        world.update(1);
+    for (uint64_t i = 0; i < 8760; i ++) {
+        world.update(1.0/365);
         std::cout << "Iteration " << i << ":\n";
-        std::cout << "Earth Position: " << world.get_body(0).position << "\n";
-        std::cout << "Earth Velocity: " << world.get_body(0).velocity << "\n";
-        std::cout << "Earth Acceleration: " << world.get_body(0).acceleration << "\n\n";
-        std::cout << "Moon Position: " << world.get_body(1).position << "\n";
-        std::cout << "Moon Velocity: " << world.get_body(1).velocity << "\n";
-        std::cout << "Moon Acceleration: " << world.get_body(1).acceleration << "\n\n";
+        std::cout << "Sun Position: " << world.get_body(0).position << "\n";
+        std::cout << "Sun Velocity: " << world.get_body(0).velocity << "\n";
+        std::cout << "Sun Acceleration: " << world.get_body(0).acceleration << "\n\n";
+        std::cout << "Earth Position: " << world.get_body(1).position << "\n";
+        std::cout << "Earth Velocity: " << world.get_body(1).velocity << "\n";
+        std::cout << "Earth Acceleration: " << world.get_body(1).acceleration << "\n\n";
     }
 
     return 0;

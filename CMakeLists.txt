@@ -17,6 +17,7 @@ add_executable(Ominous_Orbits
         src/Gravity.cpp
         include/Maths/Integrators/EulerIntegrator.h
         include/Maths/Integrators/RK2.h
+        include/Maths/Units.h
 )
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")
