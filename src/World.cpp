@@ -60,9 +60,6 @@ void World::update(const double dt) {
 
         body.velocity += body.acceleration * half_dt;
         body.position += body.velocity * dt;
-
-        // Reset acceleration accumulator before computing new forces
-        body.acceleration = {0, 0, 0};
     }
 
     // 2. Compute new accelerations at updated positions

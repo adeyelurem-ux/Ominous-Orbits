@@ -9,8 +9,9 @@ int main() {
     world.create_body({1, 0, 0}, 3.003489616e-6);
 
     world.get_body(1).velocity = {0, 2.0 * std::numbers::pi, 0};
+    world.update_grav_fields();
 
-    for (uint64_t i = 0; i < 8760; i ++) {
+    for (uint64_t i = 0; i < 730; i ++) {
         world.update(1.0/365);
         if (i % 365 != 0) continue;
         std::cout << "Iteration " << i << ":\n";
