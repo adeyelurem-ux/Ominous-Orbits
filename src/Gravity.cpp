@@ -5,8 +5,8 @@
 
 #include "Physics/Gravity.h"
 
-[[nodiscard]] Vector3 GravField::evaluate_field_strength(const Vector3& source_pos, const Vector3& target_pos,
-    const double source_mass) {
+[[nodiscard]] Vector3 GravField::evaluate_field_strength(const Vector3& source_pos,
+    const Vector3& target_pos, const double source_mass) {
     
     const Vector3 rad_vector = source_pos - target_pos;
     const double r_sqd = mod_sqd(rad_vector);
