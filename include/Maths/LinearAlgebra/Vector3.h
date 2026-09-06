@@ -5,6 +5,7 @@
 #ifndef OMINOUS_ORBITS_VECTOR3_H
 #define OMINOUS_ORBITS_VECTOR3_H
 
+#include <iostream>
 
 struct Vector3 {
     double x = 0;
@@ -106,6 +107,12 @@ struct Vector3 {
 
     [[nodiscard]] constexpr Vector3 along_unit(const Vector3& u) const {
         return (this->dot(u) * u);
+    }
+
+
+    friend std::ostream& operator<<(std::ostream& os, const Vector3& v) {
+        os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
+        return os;
     }
 };
 

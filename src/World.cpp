@@ -37,6 +37,8 @@ void World::destroy_body(const std::size_t index) {
 void World::update_grav_fields() {
     for (auto& a : bodies) {
         if (!a.is_alive) continue;
+
+        a.acceleration = {0, 0, 0};
         Vector3 total_g;
         for (auto& b : bodies) {
             if (!b.is_alive) continue;
@@ -50,6 +52,10 @@ void World::update_grav_fields() {
 
 
 void World::update(const double dt) {
+    for (auto& body : bodies) {
+        body.acceleration = {0, 0, 0};
+    }
+
     update_grav_fields();
 
     for (auto& body : bodies) {
