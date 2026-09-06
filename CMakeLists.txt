@@ -9,7 +9,10 @@ include_directories(include)
 
 add_executable(Ominous_Orbits
         src/main.cpp
-        include/Maths/LinearAlgebra/Vector3.h)
+        include/Maths/LinearAlgebra/Vector3.h
+        include/Physics/body.h
+        include/Physics/World.h
+        src/World.cpp)
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")
 if(CLANG_FORMAT_EXE)
