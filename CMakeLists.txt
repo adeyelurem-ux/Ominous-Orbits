@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(SDL3 REQUIRED)
+
 include_directories(include)
 
 add_executable(Ominous_Orbits
@@ -18,7 +20,11 @@ add_executable(Ominous_Orbits
         include/Maths/Integrators/EulerIntegrator.h
         include/Maths/Integrators/RK2.h
         include/Maths/Units.h
+        include/Renderer2D.h
+        src/Renderer2D.cpp
 )
+
+target_link_libraries(Ominous_Orbits PRIVATE SDL3::SDL3)
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")
 if(CLANG_FORMAT_EXE)
