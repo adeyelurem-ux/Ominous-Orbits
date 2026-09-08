@@ -19,7 +19,7 @@ int main() {
     SDL_Event event;
 
     constexpr double physics_dt_years = 1.0 / (365.0 * 100);
-    constexpr double sim_years_per_real_second = 0.01;
+    constexpr double sim_years_per_real_second = 0.1;
 
     double sim_time_accumulator = 0.0;
     auto previous_time = std::chrono::high_resolution_clock::now();

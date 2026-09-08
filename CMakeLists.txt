@@ -9,6 +9,8 @@ find_package(SDL3 REQUIRED)
 
 include_directories(include)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 add_executable(Ominous_Orbits
         src/main.cpp
         include/Maths/LinearAlgebra/Vector3.h
