@@ -1,7 +1,7 @@
-#include<iostream>
-
-#include "Physics/World.h"
 #include "Maths/Units.h"
+#include "Physics/World.h"
+
+#include<iostream>
 
 int main() {
     World world;

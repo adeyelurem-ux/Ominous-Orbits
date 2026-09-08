@@ -1,11 +1,16 @@
 //
 // Created by Michael Adeyelure on 06/09/2026.
-//
 
 #include "Physics/World.h"
 
 #include "Physics/Gravity.h"
 
+/**
+ *
+ * @param position position where body is generated
+ * @param mass mass of the body
+ * @return index of the new body
+ */
 std::size_t World::create_body(const Vector3 &position, const double mass) {
     Body body;
     body.position = position;
@@ -53,8 +58,7 @@ void World::update_grav_fields() {
 
 void World::update(const double dt) {
     const double half_dt = dt * 0.5;
-
-    // 1. First velocity half-step & full position step
+    
     for (auto& body : bodies) {
         if (!body.is_alive) continue;
 
@@ -62,10 +66,8 @@ void World::update(const double dt) {
         body.position += body.velocity * dt;
     }
 
-    // 2. Compute new accelerations at updated positions
     update_grav_fields();
 
-    // 3. Second velocity half-step using NEW accelerations
     for (auto& body : bodies) {
         if (!body.is_alive) continue;
 
