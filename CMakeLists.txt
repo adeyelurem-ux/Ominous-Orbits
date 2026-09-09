@@ -24,6 +24,7 @@ add_executable(Ominous_Orbits
         include/Maths/Units.h
         include/Renderer2D.h
         src/Renderer2D.cpp
+        include/Logger.h
 )
 
 target_link_libraries(Ominous_Orbits PRIVATE SDL3::SDL3)
