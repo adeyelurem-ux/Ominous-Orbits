@@ -6,19 +6,24 @@
 #include <chrono>
 #include <sstream>
 
+namespace fs = std::filesystem;
+
 int main() {
     const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
     if (!renderer.is_initialised()) return -1;
 
     World world;
+
+    fs::create_directories("orbit_outputs");
+
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
     std::stringstream ss;
 
-    ss << std::put_time(std::localtime(&in_time_t), "Y%m%d_%H%M%S") << "orbital_data.csv";
+    ss << std::put_time(std::localtime(&in_time_t), "%Y%m%d_%H%M%S") << "orbital_data.csv";
 
-    Logger logger(ss.str());
+    Logger logger("orbit_outputs/" + ss.str());
 
     world.create_body({0, 0, 0}, 1.0);
     world.create_body({1, 0, 0}, 3.003489616e-6);

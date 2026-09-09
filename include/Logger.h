@@ -8,7 +8,6 @@
 #include "Maths/LinearAlgebra/Vector3.h"
 
 #include<fstream>
-#include<iostream>
 #include<string>
 
 class Logger {
