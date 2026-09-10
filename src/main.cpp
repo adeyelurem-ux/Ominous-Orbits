@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include "CSVLogger.h"
 #include "Maths/Units.h"
 #include "Physics/World.h"
 #include "Renderer2D.h"
@@ -9,12 +9,7 @@
 namespace fs = std::filesystem;
 
 int main() {
-    const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
-    if (!renderer.is_initialised())
-        return -1;
-
-    World world;
-
+    //Logging setup
     fs::create_directories("orbit_outputs");
 
     auto now = std::chrono::system_clock::now();
@@ -24,13 +19,21 @@ int main() {
 
     ss << std::put_time(std::localtime(&in_time_t), "%Y%m%d_%H%M%S") << "orbital_data.csv";
 
-    Logger logger("orbit_outputs/" + ss.str());
+    CSVLogger csv_logger("orbit_outputs/" + ss.str());
 
+    const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
+    if (!renderer.is_initialised())
+        return -1;
+
+    World world;
+
+    //Initialisation
     world.create_body({0, 0, 0}, 1.0);
     world.create_body({1, 0, 0}, 3.003489616e-6);
     world.get_body(1).velocity = {0, 2.0 * std::numbers::pi, 0};
     world.update_grav_fields();
 
+    //Update Loop
     bool running = true;
     SDL_Event event;
 
@@ -66,7 +69,7 @@ int main() {
         for (std::size_t i = 0; i < world.get_bodies().size(); i++) {
             Body &body = world.get_body(i);
 
-            logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position,
+            csv_logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position,
                        body.velocity, body.acceleration);
         }
 

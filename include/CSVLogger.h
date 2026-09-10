@@ -10,9 +10,9 @@
 #include <fstream>
 #include <string>
 
-class Logger {
+class CSVLogger {
 public:
-    explicit Logger(const std::string &filename) {
+    explicit CSVLogger(const std::string &filename) {
         file.open(filename);
         if (file.is_open()) {
             file << "sim_years,body_id,pos_x,pos_y,pos_z,vel_x,vel_y,vel_z,acc_x,acc_y,"
@@ -20,7 +20,7 @@ public:
         }
     }
 
-    ~Logger() {
+    ~CSVLogger() {
         if (file.is_open()) {
             file.close();
         }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 4.1)
 project(Ominous_Orbits)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -24,7 +24,7 @@ add_executable(Ominous_Orbits
         include/Maths/Units.h
         include/Renderer2D.h
         src/Renderer2D.cpp
-        include/Logger.h
+        include/CSVLogger.h
 )
 
 target_link_libraries(Ominous_Orbits PRIVATE SDL3::SDL3)
