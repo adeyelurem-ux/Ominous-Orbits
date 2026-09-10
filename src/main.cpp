@@ -12,8 +12,8 @@ namespace fs = std::filesystem;
 
 int main() {
     // Logging setup
-    bool logging = false;
-    bool log_on_render = true;
+    bool logging = JsonInit::get_logging_info("config/init.json")[0];
+    bool log_at_render = JsonInit::get_logging_info("config/init.json")[1];
 
     std::optional<CSVLogger> csv_logger;
 
@@ -71,18 +71,46 @@ int main() {
         // 2. Track real time passed for rendering
         render_accumulator += real_dt;
 
+        if (logging) {
+            std::size_t i = 0;
+            for (auto &body : world.get_bodies()) {
+                csv_logger->log(sim_time_elapsed, i, body.mass, body.position, body.velocity,
+                                body.acceleration);
+                i++;
+            }
+        }
+
         // Handle window events
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
 
             else if (event.type == SDL_EVENT_MOUSE_WHEEL){
+                float mouse_x = event.wheel.mouse_x;
+                float mouse_y = event.wheel.mouse_y;
+
                 if (event.wheel.y > 0) {
-                    renderer.zoom(1.1);
+                    renderer.zoom_at(1.1, mouse_x, mouse_y);
                 }
 
                 else if (event.wheel.y < 0) {
-                    renderer.zoom(0.9);
+                    renderer.zoom_at(0.9, mouse_x, mouse_y);
+                }
+            }
+
+            else if (event.type == SDL_EVENT_KEY_DOWN) {
+                switch (event.key.key) {
+                case SDLK_ESCAPE:
+                    running = false;
+                    break;
+
+                case SDLK_K:
+                    renderer.reset_pan();
+                    renderer.reset_scale();
+
+                default:
+                    break;
+
                 }
             }
 
@@ -108,11 +136,13 @@ int main() {
             // Subtract interval to keep surplus time for the next frame
             render_accumulator -= RENDER_INTERVAL;
 
-            if (logging && log_on_render) {
-                const std::size_t i = 0;
+            if (logging && log_at_render) {
+                std::size_t i = 0;
                 for (auto &body : world.get_bodies()) {
                     csv_logger->log(sim_time_elapsed, i, body.mass, body.position, body.velocity,
                                     body.acceleration);
+
+                    i++;
                 }
             }
         }

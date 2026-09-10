@@ -1,4 +1,7 @@
 {
+  "logging" : true,
+  "log_at_render" : false,
+
   "system_name": "Solar System",
   "bodies": [
     {

@@ -76,3 +76,30 @@ bool JsonInit::load_world_from_json(const std::string &filepath, World &world) {
     world.update_grav_fields();
     return true;
 }
+
+std::array<bool, 2> JsonInit::get_logging_info(const std::string &filepath) {
+    std::array log_settings {false, false}; // index 0 asks if logging, index 1 asks if logging on render
+    if (!fs::exists(filepath)) {
+        std::cerr << "JSON Loader Error. File not found at filepath: " << filepath << "\n";
+        return log_settings;
+    }
+
+    FILE *fp = fopen(filepath.c_str(), "r");
+    if (!fp) {
+        std::cerr << "Unable to open file: " << filepath << "\n";
+        return log_settings;
+    }
+
+    char read_buffer[65536];
+
+    rapidjson::FileReadStream stream(fp, read_buffer, sizeof(read_buffer));
+
+    rapidjson::Document doc;
+    doc.ParseStream(stream);
+    fclose(fp);
+
+    log_settings[0] = doc["logging"].GetBool();
+    log_settings[1] = doc["log_at_render"].GetBool();
+
+    return log_settings;
+}
