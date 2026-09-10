@@ -55,9 +55,8 @@ void Renderer2D::drawFilledCircle(const float centre_x, const float centre_y, fl
         float x = centre_x + radius * std::cos(angle);
         float y = centre_y + radius * std::sin(angle);
 
-        vertices.push_back({.position = {.x = x, .y = y},
-                            .color = colour,
-                            .tex_coord = {.x = 0, .y = 0}});
+        vertices.push_back(
+            {.position = {.x = x, .y = y}, .color = colour, .tex_coord = {.x = 0, .y = 0}});
 
         if (i > 0) {
             indices.push_back(0);     // Center
@@ -81,7 +80,7 @@ void Renderer2D::render_world(World &world) const {
             continue;
 
         SDL_FPoint screen_pos = au_to_screen(body.position);
-        const auto screen_radius = std::max(3.0f ,static_cast<float>(body.radius * scale));
+        const auto screen_radius = std::max(3.0f, static_cast<float>(body.radius * scale));
 
         SDL_FColor colour = (body.mass > 0.5) ? SDL_FColor{1.0f, 0.92f, 0.0f, 1.0f}
                                               : SDL_FColor{0.2f, 0.6f, 1.0f, 1.0f};

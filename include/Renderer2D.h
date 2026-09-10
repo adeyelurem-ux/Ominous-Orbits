@@ -26,10 +26,31 @@ public:
     void render_world(World &world) const;
     void present() const;
 
-    void set_zoom(const double new_zoom) { scale = new_zoom; }
+    void zoom(const double new_zoom) { scale = std::clamp(scale * new_zoom, 10.0, 5000.0); }
+    void zoom_at(const double factor, const float mouse_x, const float mouse_y) {
+        // Clamp zoom scale within reasonable bounds
+        double new_scale = std::clamp(scale * factor, 1.0, 50000.0);
+        double actual_factor = new_scale / scale;
+
+        // Calculate mouse position relative to the screen center
+        double center_x = window_width * 0.5;
+        double center_y = window_height * 0.5;
+
+        // Shift offsets so the point under the cursor stays fixed
+        x_offset -= (mouse_x - center_x - x_offset) * (actual_factor - 1.0);
+        y_offset -= (mouse_y - center_y - y_offset) * (actual_factor - 1.0);
+
+        scale = new_scale;
+    }
     void pan(const double dx, const double dy) {
         x_offset += dx;
         y_offset += dy;
+    }
+
+    void reset_scale() { scale = 600; }
+    void reset_pan() {
+        x_offset = 0.0;
+        y_offset = 0.0;
     }
 
 private:
@@ -40,7 +61,7 @@ private:
     int window_width;
     int window_height;
 
-    double scale = 200.0; // pixels per AU
+    double scale = 600.0; // pixels per AU
     double x_offset = 0.0;
     double y_offset = 0.0;
 
