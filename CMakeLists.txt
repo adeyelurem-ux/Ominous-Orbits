@@ -41,3 +41,19 @@ if(CLANG_FORMAT_EXE)
             COMMENT "Formatting source code with clang-format..."
     )
 endif()
+
+option(BUILD_PLOTTING_TOOLS "Enable targets for Python plotting and telemetry analysis" OFF)
+
+if(BUILD_PLOTTING_TOOLS)
+    # 2. Locate the Python interpreter (prefers active venv if available)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+
+    message(STATUS "Plotting tools enabled. Using Python interpreter: ${Python3_EXECUTABLE}")
+
+    # 3. Create the custom plot target
+    add_custom_target(plot
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/plot_orbits.py
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            COMMENT "Running orbital telemetry analysis script..."
+    )
+endif()
