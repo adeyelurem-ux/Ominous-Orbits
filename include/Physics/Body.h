@@ -19,11 +19,12 @@ struct Body {
 
     double mass = 1;    // solar masses
     double density = 1; // kilograms per metre-cubed
-    double radius =
-        std::cbrt(3.0 * mass / (4.0 * std::numbers::pi * SI_TO_ASTRONOMICAL_DENSITY * density)); // AU
+    double radius = std::cbrt(
+        3.0 * mass / (4.0 * std::numbers::pi * SI_TO_ASTRONOMICAL_DENSITY * density)); // AU
 
     void update_radius_au() {
-        radius = std::cbrt(3.0 * mass / (4.0 * std::numbers::pi * SI_TO_ASTRONOMICAL_DENSITY * density));
+        radius =
+            std::cbrt(3.0 * mass / (4.0 * std::numbers::pi * SI_TO_ASTRONOMICAL_DENSITY * density));
     }
 
     bool is_alive = true;

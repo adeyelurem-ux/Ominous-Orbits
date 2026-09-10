@@ -26,7 +26,7 @@ public:
     void render_world(World &world) const;
     void present() const;
 
-    void set_zoom(const double new_zoom) { scale = new_zoom; }
+    void zoom(const double new_zoom) { scale = std::clamp(scale * new_zoom, 10.0, 5000.0);}
     void pan(const double dx, const double dy) {
         x_offset += dx;
         y_offset += dy;
@@ -40,7 +40,7 @@ private:
     int window_width;
     int window_height;
 
-    double scale = 200.0; // pixels per AU
+    double scale = 600.0; // pixels per AU
     double x_offset = 0.0;
     double y_offset = 0.0;
 

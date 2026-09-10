@@ -1,0 +1,68 @@
+{
+  "system_name": "Solar System",
+  "bodies": [
+    {
+      "name": "Sun",
+      "mass": 1.0,
+      "density": 1408.0,
+      "position": [0.0, 0.0, 0.0],
+      "velocity": [0.0, 0.0, 0.0]
+    },
+    {
+      "name": "Mercury",
+      "mass": 1.6601e-7,
+      "density": 5429.0,
+      "position": [0.3871, 0.0, 0.0],
+      "velocity": [0.0, 10.099, 0.0]
+    },
+    {
+      "name": "Venus",
+      "mass": 2.4478e-6,
+      "density": 5243.0,
+      "position": [0.7233, 0.0, 0.0],
+      "velocity": [0.0, 7.388, 0.0]
+    },
+    {
+      "name": "Earth",
+      "mass": 3.0034896e-6,
+      "density": 5514.0,
+      "position": [1.0, 0.0, 0.0],
+      "velocity": [0.0, 6.283185, 0.0]
+    },
+    {
+      "name": "Mars",
+      "mass": 3.2272e-7,
+      "density": 3934.0,
+      "position": [1.5237, 0.0, 0.0],
+      "velocity": [0.0, 5.089, 0.0]
+    },
+    {
+      "name": "Jupiter",
+      "mass": 9.54588e-4,
+      "density": 1326.0,
+      "position": [5.2044, 0.0, 0.0],
+      "velocity": [0.0, 2.7541, 0.0]
+    },
+    {
+      "name": "Saturn",
+      "mass": 2.8571e-4,
+      "density": 687.0,
+      "position": [9.5826, 0.0, 0.0],
+      "velocity": [0.0, 2.029, 0.0]
+    },
+    {
+      "name": "Uranus",
+      "mass": 4.3662e-5,
+      "density": 1271.0,
+      "position": [19.2184, 0.0, 0.0],
+      "velocity": [0.0, 1.432, 0.0]
+    },
+    {
+      "name": "Neptune",
+      "mass": 5.1514e-5,
+      "density": 1638.0,
+      "position": [30.1104, 0.0, 0.0],
+      "velocity": [0.0, 1.145, 0.0]
+    }
+  ]
+}
