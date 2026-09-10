@@ -39,7 +39,6 @@ int main() {
     // Initialisation
     JsonInit::load_world_from_json("config/init.json", world);
 
-
     // Update Loop
     bool running = true;
     SDL_Event event;
@@ -85,7 +84,7 @@ int main() {
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
 
-            else if (event.type == SDL_EVENT_MOUSE_WHEEL){
+            else if (event.type == SDL_EVENT_MOUSE_WHEEL) {
                 float mouse_x = event.wheel.mouse_x;
                 float mouse_y = event.wheel.mouse_y;
 
@@ -110,7 +109,6 @@ int main() {
 
                 default:
                     break;
-
                 }
             }
 

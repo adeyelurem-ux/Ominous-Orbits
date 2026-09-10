@@ -78,7 +78,8 @@ bool JsonInit::load_world_from_json(const std::string &filepath, World &world) {
 }
 
 std::array<bool, 2> JsonInit::get_logging_info(const std::string &filepath) {
-    std::array log_settings {false, false}; // index 0 asks if logging, index 1 asks if logging on render
+    std::array log_settings{false,
+                            false}; // index 0 asks if logging, index 1 asks if logging on render
     if (!fs::exists(filepath)) {
         std::cerr << "JSON Loader Error. File not found at filepath: " << filepath << "\n";
         return log_settings;

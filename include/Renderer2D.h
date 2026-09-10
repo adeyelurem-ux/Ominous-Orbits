@@ -48,7 +48,10 @@ public:
     }
 
     void reset_scale() { scale = 600; }
-    void reset_pan() { x_offset = 0.0; y_offset = 0.0; }
+    void reset_pan() {
+        x_offset = 0.0;
+        y_offset = 0.0;
+    }
 
 private:
     SDL_Window *window = nullptr;
