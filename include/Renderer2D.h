@@ -19,6 +19,9 @@ public:
 
     [[nodiscard]] bool is_initialised() const { return initialised; }
 
+    void drawFilledCircle(float centre_x, float centre_y, float radius, int segments,
+                          const SDL_FColor &colour) const;
+
     void clear() const;
     void render_world(World &world) const;
     void present() const;

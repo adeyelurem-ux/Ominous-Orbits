@@ -9,7 +9,7 @@
 namespace fs = std::filesystem;
 
 int main() {
-    //Logging setup
+    // Logging setup
     fs::create_directories("orbit_outputs");
 
     auto now = std::chrono::system_clock::now();
@@ -27,13 +27,15 @@ int main() {
 
     World world;
 
-    //Initialisation
+    // Initialisation
     world.create_body({0, 0, 0}, 1.0);
     world.create_body({1, 0, 0}, 3.003489616e-6);
+    world.get_body(0).density = 1408; world.get_body(0).update_radius_au();
     world.get_body(1).velocity = {0, 2.0 * std::numbers::pi, 0};
+    world.get_body(1).density = 5514; world.get_body(1).update_radius_au();
     world.update_grav_fields();
 
-    //Update Loop
+    // Update Loop
     bool running = true;
     SDL_Event event;
 
@@ -70,7 +72,7 @@ int main() {
             Body &body = world.get_body(i);
 
             csv_logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position,
-                       body.velocity, body.acceleration);
+                           body.velocity, body.acceleration);
         }
 
         renderer.clear();
