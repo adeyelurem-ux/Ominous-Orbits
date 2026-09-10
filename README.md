@@ -2,7 +2,8 @@
 
 A modular 3D N-body orbital physics simulator built in C++20 and SDL3. This project is an exercise in numerical integration schemes, gravitational mechanics, and decoupled software architecture.
 
-<img width="800" height="741" alt="Ominous Orbits GIF" src="https://github.com/user-attachments/assets/f9d918ae-20b9-4c00-8d6e-d1dc32c7c563" />
+<img width="800" height="741" alt="ominous orbits gif 2" src="https://github.com/user-attachments/assets/9d016162-0973-4043-aaf1-4c7a2d5d02b9" />
+
 
 ---
 

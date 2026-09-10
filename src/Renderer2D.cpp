@@ -4,7 +4,9 @@
 
 #include "Renderer2D.h"
 
+#include <cmath>
 #include <iostream>
+#include <vector>
 
 Renderer2D::Renderer2D(const char *title, const int width, const int height)
     : window_width(width), window_height(height) {
@@ -39,6 +41,35 @@ SDL_FPoint Renderer2D::au_to_screen(const Vector3 &pos) const {
                       .y = static_cast<float>(y_centre - (pos.y * scale))};
 }
 
+void Renderer2D::drawFilledCircle(const float centre_x, const float centre_y, float radius,
+                                  int segments, const SDL_FColor &colour) const {
+    std::vector<SDL_Vertex> vertices;
+    std::vector<int> indices;
+
+    vertices.push_back({.position = {.x = centre_x, .y = centre_y},
+                        .color = colour,
+                        .tex_coord = {.x = 0.0f, .y = 0.0f}});
+
+    for (int i = 0; i <= segments; ++i) {
+        float angle = static_cast<float>(i) * (2.0f * 3.14159265f / static_cast<float>(segments));
+        float x = centre_x + radius * std::cos(angle);
+        float y = centre_y + radius * std::sin(angle);
+
+        vertices.push_back({.position = {.x = x, .y = y},
+                            .color = colour,
+                            .tex_coord = {.x = 0, .y = 0}});
+
+        if (i > 0) {
+            indices.push_back(0);     // Center
+            indices.push_back(i);     // Current point
+            indices.push_back(i + 1); // Next point
+        }
+    }
+
+    SDL_RenderGeometry(sdl_renderer, nullptr, vertices.data(), static_cast<int>(vertices.size()),
+                       indices.data(), static_cast<int>(indices.size()));
+}
+
 void Renderer2D::clear() const {
     SDL_SetRenderDrawColor(sdl_renderer, 10, 10, 15, 255);
     SDL_RenderClear(sdl_renderer);
@@ -50,19 +81,12 @@ void Renderer2D::render_world(World &world) const {
             continue;
 
         SDL_FPoint screen_pos = au_to_screen(body.position);
-        const float size = (body.mass > 0.5) ? 12.0 : 8.0;
+        const auto screen_radius = std::max(3.0f ,static_cast<float>(body.radius * scale));
 
-        SDL_FRect rect = {
-            .x = screen_pos.x - size * 0.5f, .y = screen_pos.y - size * 0.5f, .w = size, .h = size};
+        SDL_FColor colour = (body.mass > 0.5) ? SDL_FColor{1.0f, 0.92f, 0.0f, 1.0f}
+                                              : SDL_FColor{0.2f, 0.6f, 1.0f, 1.0f};
 
-        // Sun = Yellow, Earth/Other = Light Blue
-        if (body.mass >= 0.5) {
-            SDL_SetRenderDrawColor(sdl_renderer, 255, 220, 50, 255);
-        } else {
-            SDL_SetRenderDrawColor(sdl_renderer, 100, 200, 255, 255);
-        }
-
-        SDL_RenderFillRect(sdl_renderer, &rect);
+        drawFilledCircle(screen_pos.x, screen_pos.y, screen_radius, 32, colour);
     }
 }
 

@@ -10,6 +10,7 @@
 constexpr double AU_TO_M = 1.495978707e11;
 constexpr double DAYS_TO_SECS = 86400;
 constexpr double SOLAR_TO_KG = 1.988416e30;
+constexpr double SI_TO_ASTRONOMICAL_DENSITY = 5.939241885e-4;
 constexpr double G =
     4 * std::numbers::pi * std::numbers::pi; // distance in AU, mass in solar masses, time in years
 
