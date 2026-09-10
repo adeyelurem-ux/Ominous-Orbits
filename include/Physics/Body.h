@@ -18,4 +18,4 @@ struct Body {
     bool is_alive = true;
 };
 
-#endif //OMINOUS_ORBITS_BODY_H
+#endif // OMINOUS_ORBITS_BODY_H

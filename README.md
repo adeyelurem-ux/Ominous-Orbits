@@ -39,6 +39,16 @@ When simulating $1/r^2$ gravitational systems over many orbital periods, choosin
 
 ---
 
+## Matplotlib Visualisation
+
+There is now a python visualisation script, which using `matplotlib` and `pandas` to interpret collected data from the CSV Logger. This can be activated by installing the dependencies on `requirements.txt` and building with the `BUILD_PLOTTING_TOOLS` option on. You can do this by entering:
+
+```bash
+cmake -B build -DBUILD_PLOTTING_TOOLS=ON
+cmake --build build --target plot
+```
+---
+
 ## Build Requirements
 
 * **Language Standard:** C++20

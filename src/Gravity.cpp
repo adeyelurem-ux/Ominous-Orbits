@@ -2,9 +2,8 @@
 // Created by Michael Adeyelure on 06/09/2026.
 #include <cmath>
 
-#include "Physics/Gravity.h"
 #include "Maths/Units.h"
-
+#include "Physics/Gravity.h"
 
 /**
  *
@@ -13,9 +12,10 @@
  * @param source_mass Mass of source particle
  * @return Acceleration due to gravity in the target position
  */
-[[nodiscard]] Vector3 GravField::evaluate_field_strength(const Vector3& source_pos,
-    const Vector3& target_pos, const double source_mass) {
-    
+[[nodiscard]] Vector3 GravField::evaluate_field_strength(const Vector3 &source_pos,
+                                                         const Vector3 &target_pos,
+                                                         const double source_mass) {
+
     const Vector3 rad_vector = source_pos - target_pos;
     const double r_sqd = mod_sqd(rad_vector);
 

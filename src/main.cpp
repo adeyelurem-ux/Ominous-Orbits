@@ -1,30 +1,39 @@
-#include "Logger.h"
-#include "Renderer2D.h"
+#include "CSVLogger.h"
 #include "Maths/Units.h"
 #include "Physics/World.h"
+#include "Renderer2D.h"
 
 #include <chrono>
 #include <sstream>
 
-int main() {
-    const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
-    if (!renderer.is_initialised()) return -1;
+namespace fs = std::filesystem;
 
-    World world;
+int main() {
+    //Logging setup
+    fs::create_directories("orbit_outputs");
+
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
     std::stringstream ss;
 
-    ss << std::put_time(std::localtime(&in_time_t), "Y%m%d_%H%M%S") << "orbital_data.csv";
+    ss << std::put_time(std::localtime(&in_time_t), "%Y%m%d_%H%M%S") << "orbital_data.csv";
 
-    Logger logger(ss.str());
+    CSVLogger csv_logger("orbit_outputs/" + ss.str());
 
+    const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
+    if (!renderer.is_initialised())
+        return -1;
+
+    World world;
+
+    //Initialisation
     world.create_body({0, 0, 0}, 1.0);
     world.create_body({1, 0, 0}, 3.003489616e-6);
     world.get_body(1).velocity = {0, 2.0 * std::numbers::pi, 0};
     world.update_grav_fields();
 
+    //Update Loop
     bool running = true;
     SDL_Event event;
 
@@ -46,7 +55,8 @@ int main() {
         sim_time_accumulator += sim_dt_passed;
 
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) running = false;
+            if (event.type == SDL_EVENT_QUIT)
+                running = false;
         }
 
         while (sim_time_accumulator >= physics_dt_years) {
@@ -57,9 +67,10 @@ int main() {
         sim_time_elapsed += sim_dt_passed;
 
         for (std::size_t i = 0; i < world.get_bodies().size(); i++) {
-            Body& body = world.get_body(i);
+            Body &body = world.get_body(i);
 
-            logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position, body.velocity, body.acceleration);
+            csv_logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position,
+                       body.velocity, body.acceleration);
         }
 
         renderer.clear();
