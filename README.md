@@ -1,8 +1,11 @@
+
+
 # Ominous Orbits
 
 A modular 3D N-body orbital physics simulator built in C++20 and SDL3. This project is an exercise in numerical integration schemes, gravitational mechanics, and decoupled software architecture.
 
-<img width="800" height="741" alt="ominous orbits gif 2" src="https://github.com/user-attachments/assets/9d016162-0973-4043-aaf1-4c7a2d5d02b9" />
+https://github.com/user-attachments/assets/f7a45804-85fd-47c4-9729-2c512a79057c
+
 
 
 ---
@@ -54,7 +57,7 @@ cmake --build build --target plot
 
 * **Language Standard:** C++20
 * **Build System:** CMake 3.20+
-* **Dependencies:** SDL3
+* **Dependencies:** SDL3, RapidJSON
 
 ```bash
 # Clone repository
