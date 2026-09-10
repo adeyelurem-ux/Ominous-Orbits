@@ -1,7 +1,7 @@
 #include "Logger.h"
-#include "Renderer2D.h"
 #include "Maths/Units.h"
 #include "Physics/World.h"
+#include "Renderer2D.h"
 
 #include <chrono>
 #include <sstream>
@@ -10,7 +10,8 @@ namespace fs = std::filesystem;
 
 int main() {
     const Renderer2D renderer("Ominous Orbits - N-Body Simulator", 1280, 720);
-    if (!renderer.is_initialised()) return -1;
+    if (!renderer.is_initialised())
+        return -1;
 
     World world;
 
@@ -51,7 +52,8 @@ int main() {
         sim_time_accumulator += sim_dt_passed;
 
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) running = false;
+            if (event.type == SDL_EVENT_QUIT)
+                running = false;
         }
 
         while (sim_time_accumulator >= physics_dt_years) {
@@ -62,9 +64,10 @@ int main() {
         sim_time_elapsed += sim_dt_passed;
 
         for (std::size_t i = 0; i < world.get_bodies().size(); i++) {
-            Body& body = world.get_body(i);
+            Body &body = world.get_body(i);
 
-            logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position, body.velocity, body.acceleration);
+            logger.log(sim_time_elapsed, static_cast<int>(i), body.mass, body.position,
+                       body.velocity, body.acceleration);
         }
 
         renderer.clear();

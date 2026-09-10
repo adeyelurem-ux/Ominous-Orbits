@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.3)
+cmake_minimum_required(VERSION 3.24)
 project(Ominous_Orbits)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -33,7 +33,7 @@ find_program(CLANG_FORMAT_EXE NAMES "clang-format")
 if(CLANG_FORMAT_EXE)
     file(GLOB_RECURSE ALL_SOURCE_FILES
             "src/*.cpp"
-            "include/*.hpp"
+            "include/*.h"
     )
     add_custom_target(
             format

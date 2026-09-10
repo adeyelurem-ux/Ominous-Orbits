@@ -15,8 +15,8 @@ public:
     std::size_t create_body(const Vector3 &position, double mass);
     void destroy_body(std::size_t index);
 
-    Body& get_body(const std::size_t index){return bodies[index];}
-    std::vector<Body>& get_bodies(){return bodies;}
+    Body &get_body(const std::size_t index) { return bodies[index]; }
+    std::vector<Body> &get_bodies() { return bodies; }
 
     void update_grav_fields();
     void update(double dt);
@@ -26,4 +26,4 @@ private:
     std::vector<std::size_t> free_indices;
 };
 
-#endif //OMINOUS_ORBITS_WORLD_H
+#endif // OMINOUS_ORBITS_WORLD_H

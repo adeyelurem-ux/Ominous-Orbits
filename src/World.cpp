@@ -30,24 +30,26 @@ std::size_t World::create_body(const Vector3 &position, const double mass) {
     return bodies.size() - 1;
 }
 
-
 void World::destroy_body(const std::size_t index) {
-    if (!bodies[index].is_alive) return;
+    if (!bodies[index].is_alive)
+        return;
 
     bodies[index].is_alive = false;
     free_indices.push_back(index);
 }
 
-
 void World::update_grav_fields() {
-    for (auto& a : bodies) {
-        if (!a.is_alive) continue;
+    for (auto &a : bodies) {
+        if (!a.is_alive)
+            continue;
 
         a.acceleration = {0, 0, 0};
         Vector3 total_g;
-        for (auto& b : bodies) {
-            if (!b.is_alive) continue;
-            if (&a == &b) continue;
+        for (auto &b : bodies) {
+            if (!b.is_alive)
+                continue;
+            if (&a == &b)
+                continue;
             total_g += GravField::evaluate_field_strength(b.position, a.position, b.mass);
         }
 
@@ -55,12 +57,12 @@ void World::update_grav_fields() {
     }
 }
 
-
 void World::update(const double dt) {
     const double half_dt = dt * 0.5;
-    
-    for (auto& body : bodies) {
-        if (!body.is_alive) continue;
+
+    for (auto &body : bodies) {
+        if (!body.is_alive)
+            continue;
 
         body.velocity += body.acceleration * half_dt;
         body.position += body.velocity * dt;
@@ -68,8 +70,9 @@ void World::update(const double dt) {
 
     update_grav_fields();
 
-    for (auto& body : bodies) {
-        if (!body.is_alive) continue;
+    for (auto &body : bodies) {
+        if (!body.is_alive)
+            continue;
 
         body.velocity += body.acceleration * half_dt;
     }
