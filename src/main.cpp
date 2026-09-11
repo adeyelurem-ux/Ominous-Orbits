@@ -36,6 +36,16 @@ int main() {
 
     World world;
 
+    Text text_engine;
+
+    if (!text_engine.init()) {
+        std::cerr << "TTF initialisation failed: " << SDL_GetError() << "\n";
+    }
+
+    if (!text_engine.loadFont("assets/american-typewriter.ttf", 18.0)) {
+        std::cerr << "Font loading failed: " << SDL_GetError() << "\n";
+    }
+
     // Initialisation
     JsonInit::load_world_from_json("config/init.json", world);
 
@@ -129,6 +139,9 @@ int main() {
         if (render_accumulator >= RENDER_INTERVAL) {
             renderer.clear();
             renderer.render_world(world);
+            renderer.drawText(text_engine, 10.0, 10.0,
+                              "Sim years: " + std::to_string(sim_time_elapsed),
+                              {255, 255, 255, 255});
             renderer.present();
 
             // Subtract interval to keep surplus time for the next frame

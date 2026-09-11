@@ -6,12 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(SDL3 REQUIRED)
+find_package(SDL3_ttf REQUIRED)
 
 include_directories(include)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 file(COPY ${CMAKE_SOURCE_DIR}/config DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 add_executable(Ominous_Orbits
         src/main.cpp
@@ -29,6 +31,8 @@ add_executable(Ominous_Orbits
         include/CSVLogger.h
         include/JsonInit.h
         src/JsonInit.cpp
+        include/Text.h
+        src/Text.cpp
 )
 
 set(RAPIDJSON_BUILD_DOC OFF CACHE BOOL "" FORCE)
@@ -45,7 +49,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(RapidJSON)
 
-target_link_libraries(Ominous_Orbits PRIVATE SDL3::SDL3)
+target_link_libraries(Ominous_Orbits PRIVATE SDL3::SDL3 SDL3_ttf::SDL3_ttf)
 target_include_directories(Ominous_Orbits PRIVATE ${rapidjson_SOURCE_DIR}/include)
 
 find_program(CLANG_FORMAT_EXE NAMES "clang-format")

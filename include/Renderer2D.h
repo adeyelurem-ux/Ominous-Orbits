@@ -8,6 +8,7 @@
 #include <SDL3/SDL.h>
 
 #include "Physics/World.h"
+#include "Text.h"
 
 class Renderer2D {
 public:
@@ -21,6 +22,7 @@ public:
 
     void drawFilledCircle(float centre_x, float centre_y, float radius, int segments,
                           const SDL_FColor &colour) const;
+    void drawText(Text &text, float x, float y, const std::string &msg, SDL_Color colour);
 
     void clear() const;
     void render_world(World &world) const;

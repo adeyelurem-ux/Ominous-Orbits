@@ -69,6 +69,31 @@ void Renderer2D::drawFilledCircle(const float centre_x, const float centre_y, fl
                        indices.data(), static_cast<int>(indices.size()));
 }
 
+void Renderer2D::drawText(Text &text, float x, float y, const std::string &msg, SDL_Color colour) {
+    TTF_Font *font = text.get_font();
+
+    if (!font || msg.empty()) {
+        return;
+    }
+
+    SDL_Surface *surface = TTF_RenderText_Blended(font, msg.c_str(), msg.size(), colour);
+    if (!surface) {
+        return;
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(sdl_renderer, surface);
+
+    if (texture) {
+        SDL_FRect dstRect = {x, y, static_cast<float>(surface->w), static_cast<float>(surface->h)};
+
+        SDL_RenderTexture(sdl_renderer, texture, nullptr, &dstRect);
+
+        SDL_DestroyTexture(texture);
+    }
+
+    SDL_DestroySurface(surface);
+}
+
 void Renderer2D::clear() const {
     SDL_SetRenderDrawColor(sdl_renderer, 10, 10, 15, 255);
     SDL_RenderClear(sdl_renderer);
