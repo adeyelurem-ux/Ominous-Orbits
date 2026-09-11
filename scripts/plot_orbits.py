@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from pathlib import Path
 
+from bin.plot_orbits import color
+
 # Path to the directory containing this Python script (e.g., .../Ominous Orbits/scripts)
 script_dir = Path(__file__).resolve().parent
 
@@ -43,12 +45,16 @@ df = pd.read_csv(latest_file)
 
 bodies = {body_id: group for body_id, group in df.groupby('body_id')}
 
-sun_data = bodies[0]
-earth_data = bodies[1]
 
 plt.figure(figsize=(8, 8))
-plt.plot(sun_data["pos_x"], sun_data["pos_y"], "yo-", label="Sun (Body 0)")
-plt.plot(earth_data["pos_x"], earth_data["pos_y"], "b-", label="Earth (Body 1)")
+
+i = 0
+for body in bodies:
+    if i == 0:
+        plt.plot(bodies[body]["pos_x"], bodies[body]["pos_y"], bodies[body]["pos_z"], color="yo-", label=f"Sun")
+        continue
+    plt.plot(bodies[body]["pos_x"], bodies[body]["pos_y"], bodies[body]["pos_z"], label=f"Body {i}")
+    i += 1
 
 plt.xlabel("X Position")
 plt.ylabel("Y Position")
